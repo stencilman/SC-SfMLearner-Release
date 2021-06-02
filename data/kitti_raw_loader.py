@@ -2,6 +2,8 @@ from __future__ import division
 import numpy as np
 from path import Path
 import scipy.misc
+from skimage.transform import resize
+import imageio
 from collections import Counter
 
 
@@ -109,7 +111,7 @@ class KittiRawLoader(object):
         self.img_height = img_height
         self.img_width = img_width
         self.cam_ids = ['02', '03']
-        self.date_list = ['2011_09_26', '2011_09_28', '2011_09_29', '2011_09_30', '2011_10_03']
+        self.date_list = ['2011_09_26']#, '2011_09_28', '2011_09_29', '2011_09_30', '2011_10_03']
         self.min_speed = min_speed
         self.get_depth = get_depth
         self.get_pose = get_pose
@@ -218,10 +220,10 @@ class KittiRawLoader(object):
         img_file = scene_data['dir']/'image_{}'.format(scene_data['cid'])/'data'/scene_data['frame_id'][tgt_idx]+'.png'
         if not img_file.isfile():
             return None
-        img = scipy.misc.imread(img_file)
+        img = imageio.imread(img_file)
         zoom_y = self.img_height/img.shape[0]
         zoom_x = self.img_width/img.shape[1]
-        img = scipy.misc.imresize(img, (self.img_height, self.img_width))
+        img = resize(img, (self.img_height, self.img_width))
         return img, zoom_x, zoom_y
 
     def read_raw_calib_file(self, filepath):

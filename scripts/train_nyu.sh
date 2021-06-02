@@ -1,5 +1,5 @@
-DATA_ROOT=/media/bjw/Disk
-TRAIN_SET=$DATA_ROOT/Dataset/rectified_nyu/
+DATA_ROOT=/home/stencilman/Downloads/
+TRAIN_SET=$DATA_ROOT/nyu/
 python train.py $TRAIN_SET \
 --folder-type pair \
 --resnet-layers 18 \
@@ -9,7 +9,7 @@ python train.py $TRAIN_SET \
 --with-mask 1 \
 --with-auto-mask 1 \
 --with-pretrain 1 \
---log-output --with-gt \
+--log-output  \
 --dataset nyu \
 --name r18_rectified_nyu
 
